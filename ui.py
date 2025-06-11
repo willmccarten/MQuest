@@ -9,4 +9,4 @@ def show_main_window():
     layout.addWidget(label)
 
     dialog.setLayout(layout)
-    dialog.exec_()
+    dialog.exec()
