@@ -1,5 +1,6 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
 from .badge_manager import get_all_badge_data
+from qtpy.QtCore import Qt
 
 
 def show_main_window():
