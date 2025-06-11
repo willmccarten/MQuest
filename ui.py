@@ -1,4 +1,4 @@
-from aqt.qt import QDialog, QLabel, QVBoxLayoutm, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
+from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
 from .badge_manager import get_all_badge_data
 
 
