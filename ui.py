@@ -1,7 +1,6 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
 from .badge_manager import get_all_badge_data
-from qtpy.QtCore import Qt
-
+from PyQt6.QtCore import Qt
 
 def show_main_window():
     dialog = QDialog()
@@ -39,8 +38,8 @@ def show_badge_popup():
             icon_label = QLabel(f"🏅 {data['tier']}")
             name_label = QLabel(subject)
 
-        icon_label.setAlignment(Qt.AlignCenter)
-        name_label.setAlignment(Qt.AlignCenter)
+        icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         badge_layout.addWidget(icon_label)
         badge_layout.addWidget(name_label)

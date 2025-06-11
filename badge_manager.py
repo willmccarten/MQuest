@@ -35,7 +35,7 @@ def get_total_and_seen_card_counts(deck_name: str):
     )
     # Reviewed cards (learned or graduated)
     seen = col.db.scalar(
-        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?) AND (type > 1)", deck_name
+        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?) AND (type > 0)", deck_name
     )
     return total, seen
 
