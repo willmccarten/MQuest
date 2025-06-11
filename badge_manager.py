@@ -1,5 +1,6 @@
 from anki.collection import Collection
 from aqt import mw
+from aqt.utils import showInfo
 
 # badge thresholds
 TIER_THRESHOLDS = [
@@ -12,7 +13,7 @@ TIER_THRESHOLDS = [
 ]
 
 # Subject deck names
-PARENT_DECK = "MileDown's MCAT Decks"
+PARENT_DECK = "AnKing-MCAT::MileDown's MCAT Decks"
 SUBDECKS = [
     "Behavioral",
     "Biochemistry",
@@ -27,15 +28,15 @@ def get_full_deck_name(subdeck):
     return f"{PARENT_DECK}::{subdeck}"
 
 def get_total_and_seen_card_counts(deck_name: str):
-    """Returns (total_cards, reviewed_cards) for a given deck."""
+    """Returns (total_cards, reviewed_cards) for a given deck name."""
     col = mw.col
-    # All cards in the deck
+    deck_id = col.decks.id(deck_name)
+
     total = col.db.scalar(
-        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?)", deck_name
+        "SELECT COUNT(*) FROM cards WHERE did = ?", deck_id
     )
-    # Reviewed cards (learned or graduated)
     seen = col.db.scalar(
-        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?) AND (type > 0)", deck_name
+        "SELECT COUNT(*) FROM cards WHERE did = ? AND type > 0", deck_id
     )
     return total, seen
 
