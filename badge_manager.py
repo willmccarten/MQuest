@@ -35,7 +35,7 @@ def get_total_and_seen_card_counts(deck_name: str):
     )
     # Reviewed cards (learned or graduated)
     seen = col.db.scalar(
-        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?) AND (type > 0)", deck_name
+        "SELECT COUNT(*) FROM cards WHERE did IN (SELECT id FROM decks WHERE name = ?) AND (type > 1)", deck_name
     )
     return total, seen
 
@@ -51,7 +51,7 @@ def get_all_badge_data():
     for subdeck in SUBDECKS:
         full_name = get_full_deck_name(subdeck)
         total, seen = get_total_and_seen_card_counts(full_name)
-        progress = seen / total if total else 0.0
+        progress = seen / total if total else 0.0 
         tier = determine_badge_tier(progress)
 
         badge_data[subdeck] = {
