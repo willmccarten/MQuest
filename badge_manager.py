@@ -24,6 +24,27 @@ SUBDECKS = [
     "Physics and Math"
 ]
 
+TIER_XP = {
+    "Bronze": 1,
+    "Silver": 2,
+    "Gold": 3,
+    "Platinum": 4,
+    "Diamond": 5,
+    None: 0
+}
+
+RANKS = [
+    (0, "Baby Gator"),
+    (5, "Spry Sophomore"),
+    (10, "Jolly Junior"),
+    (15, "Senior Gator"),
+    (20, "Hearty Hoya"),
+    (25, "Mighty Med Student"),
+    (30, "Remarkable Resident")
+    (35, "Dr. White Coat Champion")
+]
+
+
 def get_full_deck_name(subdeck):
     return f"{PARENT_DECK}::{subdeck}"
 
@@ -64,3 +85,17 @@ def get_all_badge_data():
         }
 
     return badge_data
+
+def calculate_total_xp(badge_data):
+    xp = 0
+    for badge in badge_data.values():
+        tier = badge["tier"]
+        xp += TIER_XP.get(tier, 0)
+    return xp
+
+def get_current_rank(xp):
+    current = RANKS[0][1]
+    for threshold, rank in RANKS:
+        if xp >= threshold:
+            current = rank
+    return current

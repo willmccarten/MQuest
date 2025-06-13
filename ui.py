@@ -1,5 +1,5 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
-from .badge_manager import get_all_badge_data
+from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank
 from PyQt6.QtCore import Qt
 
 def show_main_window():
@@ -7,7 +7,13 @@ def show_main_window():
     dialog.setWindowTitle("Quest of the White Coat")
 
     layout = QVBoxLayout()
+
+    badge_data = get_all_badge_data()
+    total_xp = calculate_total_xp(badge_data)
+    rank = get_current_rank(total_xp)
+
     layout.addWidget(QLabel("🩺 Welcome to the Quest!"))
+    layout.addWidget(QLabel(f"👩‍⚕️ Rank: {rank} ({total_xp} XP)"))
 
     open_badges_btn = QPushButton("View Badge Collection")
     open_badges_btn.clicked.connect(show_badge_popup)
