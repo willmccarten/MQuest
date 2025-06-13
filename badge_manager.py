@@ -40,7 +40,7 @@ RANKS = [
     (15, "Senior Gator"),
     (20, "Hearty Hoya"),
     (25, "Mighty Med Student"),
-    (30, "Remarkable Resident")
+    (30, "Remarkable Resident"),
     (35, "Dr. White Coat Champion")
 ]
 
@@ -99,3 +99,11 @@ def get_current_rank(xp):
         if xp >= threshold:
             current = rank
     return current
+
+def get_next_rank_info(xp):
+    for i, (threshold, rank) in enumerate(RANKS):
+        if xp < threshold:
+            next_rank = rank
+            next_threshold = threshold
+            return next_rank, next_threshold
+    return None, None  # edge case of at top rank
