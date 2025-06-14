@@ -25,10 +25,10 @@ SUBDECKS = [
 ]
 
 TIER_XP = {
-    "Bronze": 1,
-    "Silver": 2,
-    "Gold": 3,
-    "Platinum": 4,
+    "Wood": 1,
+    "Bronze": 2,
+    "Silver": 3,
+    "Gold": 4,
     "Diamond": 5,
     None: 0
 }

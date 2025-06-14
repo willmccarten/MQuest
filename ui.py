@@ -30,7 +30,7 @@ def show_main_window():
         progress_bar.setValue(progress)
         layout.addWidget(progress_bar)
 
-        progress_label = QLabel(f"{progress}% to {next_rank} ({total_xp}/{next_threshold} XP)")
+        progress_label = QLabel(f"{progress}% to {next_rank}")
         progress_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(progress_label)
     else:
