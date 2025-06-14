@@ -5,10 +5,10 @@ from aqt.utils import showInfo
 # badge thresholds
 TIER_THRESHOLDS = [
     (1, "Diamond"),
-    (0.80, "Platinum"),
-    (0.60, "Gold"),
-    (0.33, "Silver"),
-    (0.01, "Bronze"),
+    (0.75, "Gold"),
+    (0.50, "Silver"),
+    (0.25, "Bronze"),
+    (0.05, "Wood"),
     (0.00, None),  # No badge yet
 ]
 

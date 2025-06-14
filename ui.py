@@ -1,6 +1,17 @@
-from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton
+from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton, QPixmap
 from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info
 from PyQt6.QtCore import Qt
+import os
+
+def get_badge_icon_path(tier_name):
+    base_path = os.path.join(os.path.dirname(__file__), "assets", "badges")
+    
+    if tier_name is None or tier_name == 0:
+        return os.path.join(base_path, "badge_locked.png")  # Replace with your locked icon if needed
+    
+    tier_label = tier_name.lower()
+    filename = f"badge_{tier_label}.png"
+    return os.path.join(base_path, filename)
 
 def show_main_window():
     dialog = QDialog()
@@ -59,14 +70,17 @@ def show_badge_popup():
     for subject, data in badge_data.items():
         badge_layout = QVBoxLayout()
 
+        #load in badge icon art
+        icon_label = QLabel()
+        icon_path = get_badge_icon_path(data["tier"])
+        pixmap = QPixmap(icon_path).scaled(64, 64, Qt.AspectRatioMode.KeepAspectRatio)
+        icon_label.setPixmap(pixmap)
+        icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         if data["tier"] is None:
-            icon_label = QLabel("❓")
             name_label = QLabel("???")
         else:
-            icon_label = QLabel(f"🏅 {data['tier']}")
             name_label = QLabel(subject)
-
-        icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         name_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         badge_layout.addWidget(icon_label)
@@ -75,12 +89,6 @@ def show_badge_popup():
         progress = QProgressBar()
         progress.setValue(int(data["progress"] * 100))
         badge_layout.addWidget(progress)
-
-        # Wrap in a container widget
-        container = QVBoxLayout()
-        for widget in badge_layout.children():
-            if isinstance(widget, QLabel) or isinstance(widget, QProgressBar):
-                container.addWidget(widget)
 
         grid.addLayout(badge_layout, row, col)
         col += 1
