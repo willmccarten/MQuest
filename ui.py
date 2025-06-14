@@ -1,6 +1,8 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton, QPixmap
 from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QMovie, QFont
+from PyQt6 import QtCore
 import os
 
 def get_badge_icon_path(tier_name):
@@ -24,13 +26,26 @@ def show_main_window():
     rank = get_current_rank(total_xp)
     next_rank, next_threshold = get_next_rank_info(total_xp)
 
-    welcome_label = QLabel("🩺 Welcome to the Quest!")
+    welcome_label = QLabel("Welcome to the Quest of the White Coat!")
     welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-    rank_label = QLabel(f"👩‍⚕️ Rank: {rank} ({total_xp} XP)")
-    rank_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
+    welcome_font = QFont("Courier New", 32, QFont.Weight.Bold)
+    welcome_label.setFont(welcome_font)
+    welcome_label.setStyleSheet("color: #FFFFFF;")
     layout.addWidget(welcome_label)
+
+    sprite_label = QLabel()
+    movie = QMovie(os.path.join(os.path.dirname(__file__), "assets", "character", "character_sprite.gif"))
+    movie.setScaledSize(QtCore.QSize(420, 420))  # Adjust size here (try 120x120 or bigger)
+    sprite_label.setMovie(movie)
+    sprite_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    movie.start()
+    layout.addWidget(sprite_label)
+
+    rank_label = QLabel(f"🩺 Rank: {rank} ({total_xp} XP)")
+    rank_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    rank_font = QFont("Courier New", 25, QFont.Weight.Bold)
+    rank_label.setFont(rank_font)
+    rank_label.setStyleSheet("color: #FFFFFF;")
     layout.addWidget(rank_label)
 
     # rank progress bar
