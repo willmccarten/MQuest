@@ -1,6 +1,6 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton, QPixmap
-from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info
-from PyQt6.QtCore import Qt, QUrl
+from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info, get_last_rank, set_last_rank
+from PyQt6.QtCore import Qt, QUrl, QTimer
 from PyQt6.QtGui import QMovie, QFont, QFontDatabase, QPixmap, QPalette, QBrush
 from PyQt6 import QtCore
 import os
@@ -52,6 +52,14 @@ def show_main_window():
     rank = get_current_rank(total_xp)
     next_rank, next_threshold = get_next_rank_info(total_xp)
 
+    #check for rank up
+    last_rank = get_last_rank()
+
+    if rank != last_rank:
+        play_fireworks_animation_n_times(5, lambda: play_fireworks_animation(layout, dialog))
+        show_rank_up_popup(rank, next_rank is None)
+        set_last_rank(rank)
+
     welcome_label = QLabel("Welcome to Quest of the White Coat!")
     welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
     welcome_font = QFont(font_families[0], 32, QFont.Weight.Bold)
@@ -101,7 +109,11 @@ def show_main_window():
         progress_label.setFont(progress_font)
         layout.addWidget(progress_label)
     else:
-        layout.addWidget(QLabel("🏆 Max Rank Achieved!"))
+        max_level = QLabel("🏆 Max Rank Achieved! 🏆")
+        max_level.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        progress_font = QFont(font_families[0], 16)
+        max_level.setFont(progress_font)
+        layout.addWidget(max_level)
 
 
     open_badges_btn = QPushButton("View Badge Collection")
@@ -139,6 +151,51 @@ def show_main_window():
     dialog.setLayout(layout)
     dialog.exec()
 
+def play_fireworks_animation(parent_layout, dialog):
+    fireworks_label = QLabel(dialog)
+    fireworks_path = os.path.join(os.path.dirname(__file__), "assets", "fireworks.gif")
+    fireworks = QMovie(fireworks_path)
+    fireworks.setScaledSize(dialog.size())
+    fireworks_label.setMovie(fireworks)
+    fireworks_label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+    fireworks_label.setStyleSheet("background-color: transparent;")
+    fireworks_label.setGeometry(dialog.rect())
+    fireworks_label.show()
+    fireworks.start()
+
+    # Stop the animation after a few seconds
+    QTimer.singleShot(3000, fireworks_label.deleteLater)
+
+def play_fireworks_animation_n_times(n, animation_callable):
+    def play_once(count):
+        if count <= 0:
+            return
+        animation_callable()
+        QTimer.singleShot(2000, lambda: play_once(count - 1))
+    
+    play_once(n)
+
+def show_rank_up_popup(new_rank, final_rank=False):
+    msg = f"🎉 Congratulations! You've ranked up to {new_rank}!" if not final_rank else "👨‍⚕️ You Win! Time to be a doctor!"
+    popup = QDialog()
+    popup.setWindowTitle("🎖 Rank Up!")
+    layout = QVBoxLayout()
+
+    msg_label = QLabel(msg)
+    msg_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    msg_font = QFont(font_families[0], 16)
+    msg_label.setFont(msg_font)
+    msg_label.setStyleSheet("font-size: 16pt; font-weight: bold;")
+    layout.addWidget(msg_label)
+
+    ok_btn = QPushButton("Awesome!")
+    button_font = QFont(font_families[0])
+    ok_btn.setFont(button_font)
+    ok_btn.clicked.connect(popup.accept)
+    layout.addWidget(ok_btn)
+
+    popup.setLayout(layout)
+    popup.exec()
 
 def show_badge_popup():
     badge_data = get_all_badge_data()

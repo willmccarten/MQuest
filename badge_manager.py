@@ -107,3 +107,12 @@ def get_next_rank_info(xp):
             next_threshold = threshold
             return next_rank, next_threshold
     return None, None  # edge case of at top rank
+
+def get_last_rank():
+    config = mw.addonManager.getConfig(__name__) or {}
+    return config.get("last_rank", "")
+
+def set_last_rank(rank):
+    config = mw.addonManager.getConfig(__name__) or {}
+    config["last_rank"] = rank
+    mw.addonManager.writeConfig(__name__, config)
