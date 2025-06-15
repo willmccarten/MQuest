@@ -146,6 +146,22 @@ def show_badge_popup():
     dialog = QDialog()
     dialog.setWindowTitle("Your Badges")
 
+    overlay = QLabel(dialog)
+    overlay.resize(dialog.size())
+    overlay.setStyleSheet("background-color: rgba(0, 0, 0, 65);")
+    overlay.lower()
+
+    bg_path = os.path.join(os.path.dirname(__file__), "assets", "background", "badge_bg.png")
+    pixmap = QPixmap(bg_path)
+    if not pixmap.isNull():
+        scaled_pixmap = pixmap.scaled(dialog.size(), Qt.AspectRatioMode.KeepAspectRatioByExpanding, Qt.TransformationMode.SmoothTransformation)
+        palette = QPalette()
+        palette.setBrush(dialog.backgroundRole(), QBrush(scaled_pixmap))
+        dialog.setPalette(palette)
+        dialog.setAutoFillBackground(True)
+    else:
+        print("Failed to load background image:", bg_path)
+
     layout = QVBoxLayout()
 
     grid = QGridLayout()
