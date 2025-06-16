@@ -8,6 +8,6 @@ import aqt
 from .ui import show_main_window
 
 # Add menu item to open the add-on manually
-action = QAction("Quest of the White Coat", mw)
+action = QAction("Quest of the White Coat - Dev", mw)
 action.triggered.connect(show_main_window)
 mw.form.menuTools.addAction(action)
