@@ -109,10 +109,13 @@ def get_next_rank_info(xp):
     return None, None  # edge case of at top rank
 
 def get_last_rank():
-    config = mw.addonManager.getConfig(__name__) or {}
+    config = mw.addonManager.getConfig("MQuest")
+    if config is None:
+        return ""  # No config exists yet
     return config.get("last_rank", "")
 
 def set_last_rank(rank):
-    config = mw.addonManager.getConfig(__name__) or {}
+    config = mw.addonManager.getConfig("MQuest") or {}
     config["last_rank"] = rank
-    mw.addonManager.writeConfig(__name__, config)
+    print(f"[DEBUG] Saving last_rank as: {rank}")
+    mw.addonManager.writeConfig("MQuest", config)

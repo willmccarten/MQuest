@@ -56,9 +56,13 @@ def show_main_window():
     last_rank = get_last_rank()
 
     if rank != last_rank:
-        play_fireworks_animation_n_times(5, lambda: play_fireworks_animation(layout, dialog))
-        show_rank_up_popup(rank, next_rank is None)
         set_last_rank(rank)
+        QTimer.singleShot(100, lambda: show_rank_up_popup(rank, next_rank is None))
+        QTimer.singleShot(0, lambda: play_fireworks_animation_n_times(5, lambda: play_fireworks_animation(layout, dialog)))
+
+    print(f"[DEBUG] Total XP: {total_xp}")
+    print(f"[DEBUG] Current Rank: {rank}")
+    print(f"[DEBUG] Last Rank from config: {last_rank}")    
 
     welcome_label = QLabel("Welcome to Quest of the White Coat!")
     welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -124,7 +128,7 @@ def show_main_window():
             border-radius: 5px;
             padding: 6px 12px;
             width: 65%;
-            font-weigh: bold;
+            font-weight: bold;
             f"font-family: '{font_family}';"
         }
         QPushButton:hover {
@@ -278,7 +282,7 @@ def show_badge_popup():
             border-radius: 5px;
             padding: 6px 12px;
             width: 65%;
-            font-weigh: bold;
+            font-weight: bold;
             f"font-family: '{font_family}';"
         }
         QPushButton:hover {
