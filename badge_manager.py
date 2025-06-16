@@ -5,6 +5,8 @@ import json
 import os
 
 _config_path = os.path.join(os.path.dirname(__file__), "rank_config.json")
+ADDON_DIR = os.path.dirname(__file__)
+WELCOME_PATH = os.path.join(ADDON_DIR, "welcome_config.json")
 
 # badge thresholds
 TIER_THRESHOLDS = [
@@ -147,12 +149,17 @@ def get_rank_progress_range(xp: int):
     return current_min, next_max
 
 def has_seen_welcome():
-    config = mw.addonManager.getConfig(__name__)
-    if config is None:
+    try:
+        with open(WELCOME_PATH, "r") as f:
+            data = json.load(f)
+            print("[DEBUG] Read welcome_config:", data)
+            return data.get("welcome_shown", False)
+    except FileNotFoundError:
+        print("[DEBUG] welcome_config.json not found. Assuming first run.")
         return False
-    return config.get("welcome_shown", False)
 
 def set_welcome_shown():
-    config = mw.addonManager.getConfig(__name__) or {}
-    config["welcome_shown"] = True
-    mw.addonManager.writeConfig(__name__, config)
+    data = {"welcome_shown": True}
+    with open(WELCOME_PATH, "w") as f:
+        json.dump(data, f)
+        print("[DEBUG] Saved welcome_config:", data)
