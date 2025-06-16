@@ -132,3 +132,16 @@ def set_last_rank(rank):
             print(f"[DEBUG] Saved last_rank to file: {rank}")
     except Exception as e:
         print(f"[DEBUG] Error writing rank_config.json: {e}")
+
+def get_rank_progress_range(xp: int):
+    current_min = 0
+    next_max = 0
+
+    for i, (threshold, _) in enumerate(RANKS):
+        if xp >= threshold:
+            current_min = threshold
+            if i + 1 < len(RANKS):
+                next_max = RANKS[i + 1][0]
+            else:
+                next_max = threshold  # Final rank — bar should be full
+    return current_min, next_max

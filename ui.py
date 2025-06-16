@@ -1,5 +1,5 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton, QPixmap
-from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info, get_last_rank, set_last_rank
+from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info, get_last_rank, set_last_rank, get_rank_progress_range
 from PyQt6.QtCore import Qt, QUrl, QTimer
 from PyQt6.QtGui import QMovie, QFont, QFontDatabase, QPixmap, QPalette, QBrush
 from PyQt6 import QtCore
@@ -102,9 +102,13 @@ def show_main_window():
             }
         """)
         progress_bar.setTextVisible(False)
-        #xp_to_next = next_threshold - total_xp
-        progress = int((total_xp / next_threshold) * 100)
+
+        min_xp, max_xp = get_rank_progress_range(total_xp)
+        range_span = max_xp - min_xp
+        earned = total_xp - min_xp
+        progress = int((earned / range_span) * 100) if range_span > 0 else 100
         progress_bar.setValue(progress)
+
         layout.addWidget(progress_bar)
 
         progress_label = QLabel(f"{progress}% to {next_rank}")
