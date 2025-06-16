@@ -1,6 +1,10 @@
 from anki.collection import Collection
 from aqt import mw
 from aqt.utils import showInfo
+import json
+import os
+
+_config_path = os.path.join(os.path.dirname(__file__), "rank_config.json")
 
 # badge thresholds
 TIER_THRESHOLDS = [
@@ -109,13 +113,22 @@ def get_next_rank_info(xp):
     return None, None  # edge case of at top rank
 
 def get_last_rank():
-    config = mw.addonManager.getConfig("MQuest")
-    if config is None:
-        return ""  # No config exists yet
-    return config.get("last_rank", "")
+    try:
+        with open(_config_path, "r") as f:
+            data = json.load(f)
+            print(f"[DEBUG] Loaded last_rank from file: {data.get('last_rank', '')}")
+            return data.get("last_rank", "")
+    except FileNotFoundError:
+        print("[DEBUG] rank_config.json not found. Defaulting to empty last_rank.")
+        return ""
+    except json.JSONDecodeError as e:
+        print(f"[DEBUG] JSON decode error: {e}")
+        return ""
 
 def set_last_rank(rank):
-    config = mw.addonManager.getConfig("MQuest") or {}
-    config["last_rank"] = rank
-    print(f"[DEBUG] Saving last_rank as: {rank}")
-    mw.addonManager.writeConfig("MQuest", config)
+    try:
+        with open(_config_path, "w") as f:
+            json.dump({"last_rank": rank}, f)
+            print(f"[DEBUG] Saved last_rank to file: {rank}")
+    except Exception as e:
+        print(f"[DEBUG] Error writing rank_config.json: {e}")
