@@ -145,3 +145,14 @@ def get_rank_progress_range(xp: int):
             else:
                 next_max = threshold  # Final rank — bar should be full
     return current_min, next_max
+
+def has_seen_welcome():
+    config = mw.addonManager.getConfig(__name__)
+    if config is None:
+        return False
+    return config.get("welcome_shown", False)
+
+def set_welcome_shown():
+    config = mw.addonManager.getConfig(__name__) or {}
+    config["welcome_shown"] = True
+    mw.addonManager.writeConfig(__name__, config)

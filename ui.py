@@ -1,8 +1,10 @@
 from aqt.qt import QDialog, QLabel, QVBoxLayout, QHBoxLayout, QGridLayout, QProgressBar, QPushButton, QPixmap
-from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info, get_last_rank, set_last_rank, get_rank_progress_range
+from .badge_manager import get_all_badge_data, calculate_total_xp, get_current_rank, get_next_rank_info, get_last_rank, set_last_rank, get_rank_progress_range, has_seen_welcome, set_welcome_shown
 from PyQt6.QtCore import Qt, QUrl, QTimer
 from PyQt6.QtGui import QMovie, QFont, QFontDatabase, QPixmap, QPalette, QBrush
 from PyQt6 import QtCore
+from PyQt6.QtWidgets import QDialog, QLabel, QVBoxLayout, QPushButton
+from aqt.utils import showInfo
 import os
 
 #set font
@@ -44,6 +46,13 @@ def show_main_window():
         print("Failed to load background image:", bg_path)
 
     dialog.setWindowTitle("Quest of the White Coat")
+
+    if not has_seen_welcome():
+        showInfo(
+            "Welcome to Quest of the White Coat!\n\nGood luck on your journey.\n\n\nDedicated to my love, Giuliana.",
+            parent=dialog
+        )
+        set_welcome_shown()
 
     layout = QVBoxLayout()
 
