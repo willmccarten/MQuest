@@ -39,6 +39,17 @@ When you open Anki, the add-on shows a new home screen that tracks your progress
 
 Behind the scenes, your progress is tracked using local JSON files to keep things simple and portable.
 
+## Demo/Screen shots
+
+![image](https://github.com/user-attachments/assets/10b3943e-9d45-4350-9191-f5999841c5f5)
+Home screen view. Contains welcome message, character sprite that moves in a repeating short animation, user's progress bar to the next level, their current level and the next level they're working to, then finally a button to open the badges pop up. 
+(Note: the art and the level names very specifically tailored to my girlfriend)
+
+
+![image](https://github.com/user-attachments/assets/aeb9ca41-e6c5-4af6-8f03-dfa81cfdb7d0)
+View Badges popup window. On this window we can see rows of badges that represent the user's progress in finishing these Anki decks. As they complete the decks more and learn more of the content, they will "earn xp" to unlock the badge, and the subsequently rank up the badge. These badges and their ranks directly are responsible for the user's total level xp that is displayed on the home page. Here in this screen shot you can see that the user has all their badges unlocked, but some at different ranks than others. Two decks are totally complete of learning, seen by a full bar and the diamond tier badge icon displayed. 
+
+
 ## How to Install
 
 1. Download the latest `MQuest.zip` (this is the `MQuest` folder zipped up).
