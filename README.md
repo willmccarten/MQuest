@@ -8,6 +8,7 @@ This project is dedicated to my girlfriend Giuliana. I love you.
 - [What's This?](#whats-this)
 - [What I Learned](#what-i-learned)
 - [How It Works](#how-it-works)
+- [Demo/Screen shots](https://github.com/willmccarten/MQuest/edit/main/README.md#demoscreen-shots)
 - [How to Install](#how-to-install)
 - [File Breakdown](#file-breakdown)
 - [Final Thoughts](#final-thoughts)
@@ -74,7 +75,7 @@ Here's a high-level view of what each piece does:
 | `badge_manager.py`   | Handles XP, rank calculation, and simple JSON persistence |
 | `assets/`            | All pixel art assets — backgrounds, characters, and badges |
 | `rank_config.json`   | The XP thresholds and rank names (editable) |
-| `meta.json`          | Tracks whether the welcome popup has already been shown |
+| `welcome_config.json`          | Tracks whether the welcome popup has already been shown |
 | `manifest.json`      | Required by Anki to load the add-on |
 | `README.md`          | You’re reading it |
 | `LICENSE`            | Default open-source license (MIT) — feel free to use or remix with credit |
