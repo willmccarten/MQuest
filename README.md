@@ -8,7 +8,7 @@ This project is dedicated to my girlfriend Giuliana. I love you.
 - [What's This?](#whats-this)
 - [What I Learned](#what-i-learned)
 - [How It Works](#how-it-works)
-- [Demo/Screen shots](https://github.com/willmccarten/MQuest/edit/main/README.md#demoscreen-shots)
+- [Demo/Screen shots](#demoscreen-shots)
 - [How to Install](#how-to-install)
 - [File Breakdown](#file-breakdown)
 - [Final Thoughts](#final-thoughts)
