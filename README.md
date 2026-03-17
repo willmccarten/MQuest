@@ -13,11 +13,15 @@ This project is dedicated to my girlfriend Giuliana. I love you.
 - [File Breakdown](#file-breakdown)
 - [Final Thoughts](#final-thoughts)
 
-## What's This?
+## What is This?
 
-Quest of the White Coat is a gamified add-on for Anki designed to gently reward progress and consistency. It was created to turn the grind of flashcards into a small journey with visual feedback, ranks, and celebrations.
+Quest of the White Coat is a gamified add-on for Anki designed to gently reward progress and consistency. It was created to turn the grind of flashcards into a fun journey with visual feedback, ranks, and celebrations.
 
 This project started as a simple idea: what if there were just a little badge system to track Anki reviews like leveling up in a game? That thought turned into ranks, a home screen, progress bars, celebration animations, and eventually a full experience inside of Anki.
+
+This whole project was inspired by my girlfriend who is working really hard to get into medical school. I wanted to find a way that I can improve her daily experience with grinding out Anki flashcards, which I know everyone wishing to be a doctor goes through. 
+
+Since this project was designed with a very specific user in mind, the graphic design and game content is uniquely curated. 
 
 ## What I Learned
 
@@ -26,14 +30,14 @@ This project was a first for a few things:
 - My first time building an Anki add-on, which meant learning the quirks of Qt, PyQt6, and Anki’s architecture
 - My first time making pixel art from scratch, including character sprites and animations.
 
-It’s far from perfect, but I learned a ton — and more importantly, it works, and it feels good.
+It’s far from perfect, but I learned a lot and importantly, it works.
 
 ## How It Works
 
 When you open Anki, the add-on shows a new home screen that tracks your progress through review XP:
 
 - You gain XP as you complete cards.
-- You rise through medical-themed ranks like “Spry Sophomore,” “Senior Gator,” and eventually “Dr. White Coat Champion.”
+- You rise through ranks as you pass XP thresholds.
 - Ranks come with badge icons and visual updates.
 - When you level up, a short celebration plays — fireworks and a popup to mark your progress.
 - There’s also a simple “Quest” log for encouragement.
